@@ -140,6 +140,35 @@ const AdminTable = ({
           />
         );
 
+      case "text":
+        if (header.key === "status") {
+          return (
+            <StatusText status={value}>
+              {value}
+            </StatusText>
+          );
+        } else if (header.key === "amount") {
+          return `${Number(value).toLocaleString()} P`;
+        }
+        return value;
+
+      case "approval":
+        if (value === "Pending") {
+          return (
+            <Button 
+              onClick={() => onApprove(rowData)} 
+              colors={colors}
+            >
+              Pending
+            </Button>
+          );
+        }
+        return (
+          <CompletedText>
+            Completed
+          </CompletedText>
+        );
+
       default:
         return value;
     }
@@ -324,4 +353,14 @@ const Input = styled.input`
     height: 1.5rem;
     cursor: pointer;
   }
+`;
+
+const StatusText = styled.span`
+  color: ${props => props.status === "Pending" ? "#dc3545" : "#28a745"};
+  font-weight: 500;
+`;
+
+const CompletedText = styled.span`
+  color: #28a745;
+  font-weight: 500;
 `;
