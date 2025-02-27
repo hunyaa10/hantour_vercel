@@ -87,7 +87,7 @@ const PaginationContainer = styled.div`
 const PageButton = styled.button`
   padding: 8px 12px;
   border: 1px solid #e2e8f0;
-  background-color: ${(props) => (props.$isActive ? "#3182ce" : "white")};
+  background-color: ${(props) => (props.$isActive ? "#4a5568" : "white")};
   color: ${(props) => (props.$isActive ? "white" : "#4a5568")};
   border-radius: 4px;
   cursor: pointer;
@@ -98,7 +98,7 @@ const PageButton = styled.button`
   font-family: Arial, sans-serif;
 
   &:hover {
-    background-color: ${(props) => (props.$isActive ? "#2c5282" : "#edf2f7")};
+    background-color: ${(props) => (props.$isActive ? "#2d3748" : "#edf2f7")};
   }
 
   &:disabled {

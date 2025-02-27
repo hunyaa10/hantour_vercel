@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useColors } from "@context/ColorContext";
 
 const AdminTable = ({
   headers,
@@ -8,12 +9,15 @@ const AdminTable = ({
   onReviewClick,
   onPaymentChange,
   onThemeChange,
+  onRoomCountChange,
 }) => {
+  const colors = useColors();
   const [selectedHotel, setSelectedHotel] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [approvedRows, setApprovedRows] = useState({});
   const [selectedThemes, setSelectedThemes] = useState({});
   const [selectedPayments, setSelectedPayments] = useState({});
+  const [roomCounts, setRoomCounts] = useState({});
 
   const MIN_ROWS = 10;
 
@@ -58,6 +62,18 @@ const AdminTable = ({
     onPaymentChange(value, rowData);
   };
 
+  const handleRoomCountChange = (value, rowData) => {
+    const numericValue = value.replace(/[^0-9]/g, '');
+    const normalizedValue = numericValue ? String(parseInt(numericValue, 10)) : '';
+    if (normalizedValue === '' || parseInt(normalizedValue, 10) >= 0) {
+      setRoomCounts(prev => ({
+        ...prev,
+        [rowData.hotelNumber]: normalizedValue
+      }));
+      onRoomCountChange(normalizedValue, rowData);
+    }
+  };
+
   const renderCell = (header, value, rowData) => {
     if (value === "") return "";
 
@@ -70,13 +86,16 @@ const AdminTable = ({
               onClick={() => handleApproval(rowData)}
               disabled={isApproved}
               isApproved={isApproved}
+              colors={colors}
             >
               {isApproved ? "승인완료" : "승인"}
             </Button>
           );
         }
         return (
-          <Button onClick={() => handleReviewClick(rowData)}>호텔리뷰</Button>
+          <Button onClick={() => handleReviewClick(rowData)} colors={colors}>
+            호텔리뷰
+          </Button>
         );
 
       case "payment":
@@ -100,6 +119,18 @@ const AdminTable = ({
             <option value="Fall">Fall</option>
             <option value="Winter">Winter</option>
           </Select>
+        );
+
+      case "input":
+        return (
+          <Input
+            type="number"
+            value={roomCounts[rowData.hotelNumber] || value}
+            onChange={(e) => handleRoomCountChange(e.target.value, rowData)}
+            placeholder={value}
+            min="0"
+            step="1"
+          />
         );
 
       default:
@@ -150,6 +181,8 @@ const getColumnWidth = (type) => {
     case "payment":
     case "theme":
       return "12%";
+    case "input":
+      return "9%";
     default:
       return "9%";
   }
@@ -208,12 +241,12 @@ const TD = styled.td`
 `;
 
 const Button = styled.button`
-  width: 80%;
+  width: 70%;
   height: 2.25rem;
   padding: 0.5rem 0.75rem;
   border: none;
   border-radius: 0.25rem;
-  background-color: ${(props) => (props.isApproved ? "#6c757d" : "#007bff")};
+  background-color: ${(props) => (props.isApproved ? "#6c757d" : props.colors.main)};
   color: white;
   cursor: ${(props) => (props.isApproved ? "default" : "pointer")};
   transition: background-color 0.2s;
@@ -222,7 +255,7 @@ const Button = styled.button`
   display: block;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: ${(props) => props.isApproved ? "#6c757d" : `${props.colors.main}dd`};
   }
 `;
 
@@ -245,4 +278,33 @@ const PaymentText = styled.span`
   text-align: center;
   font-size: 0.875rem;
   color: ${(props) => (props.children === "미결제" ? "#dc3545" : "#28a745")};
+`;
+
+const Input = styled.input`
+  width: 60%;
+  height: 2rem;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  margin: 0 auto;
+  display: block;
+
+  &:focus {
+    outline: none;
+    border-color: ${props => props.colors?.main || '#0070f3'};
+    box-shadow: 0 0 0 2px ${props => `${props.colors?.main}33` || '#0070f333'};
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    opacity: 1;
+    height: 1.5rem;
+    cursor: pointer;
+  }
 `;

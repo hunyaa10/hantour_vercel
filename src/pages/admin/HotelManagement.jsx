@@ -50,7 +50,7 @@ const HotelManagement = () => {
     { key: "hotelName", label: "호텔명", type: "text" },
     { key: "region", label: "지역", type: "text" },
     { key: "theme", label: "테마", type: "theme" },
-    { key: "availableRooms", label: "예약가능 룸 수", type: "text" },
+    { key: "availableRooms", label: "예약가능 룸 수", type: "input" },
     { key: "reservationCount", label: "예약 건 수", type: "text" },
     { key: "hotelNumber", label: "호텔 번호", type: "text" },
     { key: "review", label: "호텔 리뷰", type: "button" },
@@ -68,6 +68,11 @@ const HotelManagement = () => {
 
   const handleThemeChange = (value) => {
     console.log("테마 변경:", value);
+  };
+
+  const handleRoomCountChange = (value, rowData) => {
+    console.log('Room count changed:', { hotelNumber: rowData.hotelNumber, newCount: value });
+    // API 호출 로직 추가
   };
 
   const handlePageChange = (pageNumber) => {
@@ -97,6 +102,7 @@ const HotelManagement = () => {
           data={getCurrentPageData()}
           onReviewClick={handleReviewClick}
           onThemeChange={handleThemeChange}
+          onRoomCountChange={handleRoomCountChange}
         />
       </TableContainer>
 
