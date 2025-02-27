@@ -285,6 +285,17 @@ const RegisterButton = styled.button`
   }
 `;
 
+const RoomCountInput = styled(Input)`
+  width: 80px;
+  text-align: center;
+`;
+
+const RoomNameContainer = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+`;
+
 const HotelRegistrationModal = ({ onClose }) => {
   const colors = useColors();
   const [hotelImages, setHotelImages] = useState([null]);
@@ -507,7 +518,15 @@ const HotelRegistrationModal = ({ onClose }) => {
 
               <FormGroup>
                 <Label>객실명</Label>
-                <Input type="text" placeholder="객실명을 입력해주세요." />
+                <RoomNameContainer>
+                  <Input type="text" placeholder="객실명을 입력해주세요." />
+                  <RoomCountInput 
+                    type="number" 
+                    min="1"
+                    defaultValue="1"
+                    placeholder="객실 수" 
+                  />
+                </RoomNameContainer>
               </FormGroup>
 
               <FormGroup>
