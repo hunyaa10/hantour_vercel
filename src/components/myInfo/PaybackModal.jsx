@@ -14,6 +14,11 @@ const PaybackModal = ({
 
   const [paybackAmount, setPaybackAmount] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [bankInfo, setBankInfo] = React.useState({
+    bank: "",
+    accountNumber: "",
+    accountHolder: "",
+  });
 
   const validatePaybackAmount = (amount) => {
     const numAmount = Number(amount);
@@ -52,6 +57,41 @@ const PaybackModal = ({
     }
   };
 
+  const validateBankInfo = () => {
+    if (!bankInfo.bank) {
+      setErrorMessage("Please select a bank.");
+      return false;
+    }
+    if (!bankInfo.accountNumber) {
+      setErrorMessage("Please enter your account number.");
+      return false;
+    }
+    if (!bankInfo.accountHolder) {
+      setErrorMessage("Please enter the account holder name.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleBankInfoChange = (e) => {
+    const { name, value } = e.target;
+    
+    // 계좌번호 입력 시 숫자만 허용
+    if (name === 'accountNumber') {
+      const numericValue = value.replace(/[^0-9]/g, '');
+      setBankInfo(prev => ({
+        ...prev,
+        [name]: numericValue
+      }));
+    } else {
+      setBankInfo(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+    setErrorMessage("");
+  };
+
   return (
     <Wrapper onClick={() => setIsPaybackModalOpen(false)}>
       <Modal onClick={(e) => e.stopPropagation()}>
@@ -87,6 +127,53 @@ const PaybackModal = ({
             />
             <span>points</span>
           </InputWrapper>
+
+          <BankInfoSection>
+            <BankInfoTitle color={colors.sub}>
+              Please enter your bank account information
+            </BankInfoTitle>
+            
+            <AccountInfoRow>
+              <Select
+                name="bank"
+                value={bankInfo.bank}
+                onChange={handleBankInfoChange}
+              >
+                <option value="">Select Bank</option>
+                <option value="HSBC">HSBC</option>
+                <option value="Citibank">Citibank</option>
+                <option value="JPMorgan">JPMorgan Chase</option>
+                <option value="BankOfAmerica">Bank of America</option>
+                <option value="WellsFargo">Wells Fargo</option>
+                <option value="DeutscheBank">Deutsche Bank</option>
+                <option value="BNPParibas">BNP Paribas</option>
+                <option value="Barclays">Barclays</option>
+                <option value="StandardChartered">Standard Chartered</option>
+                <option value="Goldman">Goldman Sachs</option>
+                <option value="UBS">UBS</option>
+                <option value="CreditSuisse">Credit Suisse</option>
+                <option value="RBS">Royal Bank of Scotland</option>
+                <option value="Santander">Santander</option>
+                <option value="Other">Other</option>
+              </Select>
+              <Input
+                type="text"
+                pattern="[0-9]*"
+                inputMode="numeric"
+                name="accountNumber"
+                value={bankInfo.accountNumber}
+                onChange={handleBankInfoChange}
+                placeholder="Enter account number (without '-')"
+              />
+            </AccountInfoRow>
+            <Input
+              type="text"
+              name="accountHolder"
+              value={bankInfo.accountHolder}
+              onChange={handleBankInfoChange}
+              placeholder="Enter account holder name"
+            />
+          </BankInfoSection>
         </ModalContent>
 
         <BtnBox>
@@ -120,8 +207,8 @@ const Wrapper = styled.div`
 `;
 
 const Modal = styled.div`
-  width: 35%;
-  height: 50%;
+  width: 40%;
+  height: 70%;
   padding: 2rem;
   background-color: #fff;
   border-radius: 0.5rem;
@@ -221,11 +308,10 @@ const InputWrapper = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 0 1rem;
-  margin-bottom: 2rem;
 `;
 
 const Input = styled.input`
-  width: 200px;
+  width: ${props => props.type === "number" ? "200px" : "100%"};
   height: 40px;
   padding: 0 1rem;
   border: 1px solid #dfdfdf;
@@ -266,5 +352,45 @@ const ErrorMessage = styled.p`
 
   @media screen and (max-width: 1440px) {
     font-size: 0.9rem;
+  }
+`;
+
+const BankInfoSection = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const BankInfoTitle = styled.p`
+  width: 100%;
+  text-align: center;
+  color: #333;
+  margin-bottom: 0.5rem;
+  border-top: 1px solid #ececec;
+  padding-top: 1rem;
+`;
+
+const AccountInfoRow = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+`;
+
+const Select = styled.select`
+  width: 50%;
+  height: 40px;
+  padding: 0 1rem;
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 1440px) {
+    font-size: 1rem;
   }
 `;
