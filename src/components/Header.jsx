@@ -127,12 +127,10 @@ const Header = () => {
             </Link>
           )}
 
-          {/* Admin 메뉴는 admin 계정일 때만 표시 */}
-          {isAdmin && (
             <Link to="/admin">
               <NavLink color={colors.main}>Admin</NavLink>
             </Link>
-          )}
+          
         </Nav>
       </HeaderContainer>
     </HeaderWrapper>
