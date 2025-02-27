@@ -5,6 +5,7 @@ import CustomSearchbar from "@components/custom/CustomSearchBar";
 import Pagination from "@components/admin/Pagination";
 import { hotelMockData } from "@data/hotelMockData";
 import HotelRegistrationModal from "@components/admin/HotelRegistrationModal";
+import ReviewModal from "@components/ReviewModal";
 
 // Styled Components
 const Container = styled.div`
@@ -44,16 +45,19 @@ const PaginationContainer = styled.div`
 const HotelManagement = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState(null);
   const itemsPerPage = 10;
 
   const hotelHeaders = [
     { key: "hotelName", label: "호텔명", type: "text" },
     { key: "region", label: "지역", type: "text" },
     { key: "theme", label: "테마", type: "theme" },
-    { key: "availableRooms", label: "예약가능 룸 수", type: "input" },
+    { key: "availableRooms", label: "예약가능 룸 수", type: "text" },
     { key: "reservationCount", label: "예약 건 수", type: "text" },
     { key: "hotelNumber", label: "호텔 번호", type: "text" },
     { key: "review", label: "호텔 리뷰", type: "button" },
+    { key: "edit", label: "호텔 수정", type: "editButton" },
   ];
 
   const getCurrentPageData = () => {
@@ -63,7 +67,8 @@ const HotelManagement = () => {
   };
 
   const handleReviewClick = (rowData) => {
-    console.log("호텔 리뷰:", rowData);
+    setSelectedHotel(rowData);
+    setIsReviewModalOpen(true);
   };
 
   const handleThemeChange = (value) => {
@@ -89,6 +94,10 @@ const HotelManagement = () => {
     setIsModalOpen(false);
   };
 
+  const handleEditClick = (rowData) => {
+    setIsModalOpen(true);
+  };
+
   return (
     <Container>
       <TopSection>
@@ -103,6 +112,7 @@ const HotelManagement = () => {
           onReviewClick={handleReviewClick}
           onThemeChange={handleThemeChange}
           onRoomCountChange={handleRoomCountChange}
+          onEditClick={handleEditClick}
         />
       </TableContainer>
 
@@ -116,6 +126,12 @@ const HotelManagement = () => {
       </PaginationContainer>
 
       {isModalOpen && <HotelRegistrationModal onClose={closeModal} />}
+      {isReviewModalOpen && (
+        <ReviewModal 
+          setShowReviewModal={setIsReviewModalOpen}
+          reviews={[]}
+        />
+      )}
     </Container>
   );
 };

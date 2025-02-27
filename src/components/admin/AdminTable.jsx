@@ -10,6 +10,7 @@ const AdminTable = ({
   onPaymentChange,
   onThemeChange,
   onRoomCountChange,
+  onEditClick,
 }) => {
   const colors = useColors();
   const [selectedHotel, setSelectedHotel] = useState(null);
@@ -34,8 +35,7 @@ const AdminTable = ({
   }
 
   const handleReviewClick = (rowData) => {
-    setSelectedHotel(rowData);
-    setIsModalOpen(true);
+    onReviewClick(rowData);
   };
 
   const handleApproval = (rowData) => {
@@ -96,6 +96,13 @@ const AdminTable = ({
           <Button onClick={() => handleReviewClick(rowData)} colors={colors}>
             호텔리뷰
           </Button>
+        );
+
+      case "editButton":
+        return (
+          <EditButton onClick={() => onEditClick(rowData)} colors={colors}>
+            호텔수정
+          </EditButton>
         );
 
       case "payment":
@@ -253,9 +260,19 @@ const Button = styled.button`
   font-size: 0.875rem;
   margin: 0 auto;
   display: block;
+  white-space: nowrap;
 
   &:hover {
     background-color: ${(props) => props.isApproved ? "#6c757d" : `${props.colors.main}dd`};
+  }
+`;
+
+const EditButton = styled(Button)`
+  width: 50%;
+  background-color: #000000;
+
+  &:hover {
+    background-color: #333333;
   }
 `;
 

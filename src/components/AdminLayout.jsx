@@ -20,6 +20,9 @@ function AdminLayout() {
               <MenuLink to="/admin/reservation-management" $colors={colors}>
                 예약 내역
               </MenuLink>
+              <MenuLink to="/admin/payback-management" $colors={colors}>
+                페이백 내역
+              </MenuLink>
             </MenuList>
           </NavContainer>
         </Sidebar>

@@ -21,6 +21,7 @@ import ResetPassword from "@pages/ResetPassword";
 import ReservationComplete from "@pages/ReservationComplete";
 import HotelManagement from "@pages/admin/HotelManagement";
 import ReservationManagement from "@pages/admin/ReservationManagement";
+import PaybackManagement from "@pages/admin/PaybackManagement";
 import AdminLayout from "@components/AdminLayout";
 import EditMyInfo from "@components/myInfo/EditMyInfo";
 import BookingHistory from "@components/myInfo/BookingHistory";
@@ -69,6 +70,10 @@ function App() {
           <Route
             path="reservation-management"
             element={<ReservationManagement />}
+          />
+          <Route
+            path="payback-management"
+            element={<PaybackManagement />}
           />
         </Route>
       </Routes>
