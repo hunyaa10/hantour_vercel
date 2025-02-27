@@ -88,7 +88,7 @@ const Header = () => {
 
   return (
     <HeaderWrapper $isAdmin={isAdminPage}>
-      <HeaderContainer>
+      <HeaderContainer $isAdmin={isAdminPage}>
         <Link
           to="/"
           style={{
@@ -151,7 +151,7 @@ const HeaderWrapper = styled.header`
 
 const Container = styled.div`
   width: 100%;
-  max-width: 1400px;
+  max-width: ${props => props.$isAdmin ? '100%' : '1400px'};
   margin: 0 auto;
   padding: 0 2rem;
 `;
