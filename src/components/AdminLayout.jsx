@@ -1,8 +1,11 @@
 import { Outlet, NavLink, Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "@components/Header";
+import { useColors } from "@context/ColorContext";
 
 function AdminLayout() {
+  const colors = useColors();
+
   return (
     <AdminContainer>
       <Header />
@@ -11,16 +14,13 @@ function AdminLayout() {
         <Sidebar>
           <NavContainer>
             <MenuList>
-              <MenuLink to="/admin/hotel-management">호텔 내역</MenuLink>
-              <MenuLink to="/admin/reservation-management">예약 내역</MenuLink>
+              <MenuLink to="/admin/hotel-management" $colors={colors}>
+                호텔 내역
+              </MenuLink>
+              <MenuLink to="/admin/reservation-management" $colors={colors}>
+                예약 내역
+              </MenuLink>
             </MenuList>
-            {/* 임시링크 */}
-
-            {/* <BtnWrapper>
-              <Link to={"/login"}>
-                <LogoutButton>로그아웃</LogoutButton>
-              </Link>
-            </BtnWrapper> */}
           </NavContainer>
         </Sidebar>
         <Content>
@@ -75,14 +75,15 @@ const MenuLink = styled(NavLink)`
   font-size: 16px;
   margin-bottom: 10px;
   border-radius: 4px;
+  text-align: center;
 
   &.active {
-    color: #2e7d32;
-    background-color: #e8f5e9;
+    color: ${props => props.$colors.main};
+    background-color: ${props => props.$colors.subLight};
   }
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: ${props => props.$colors.subLight};
   }
 `;
 
