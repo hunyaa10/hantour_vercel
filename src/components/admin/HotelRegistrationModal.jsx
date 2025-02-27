@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useColors } from "@context/ColorContext";
 
 // 스타일드 컴포넌트 정의
 const ModalOverlay = styled.div`
@@ -106,13 +107,13 @@ const AddImageButton = styled.button`
 
 const PlusIcon = styled.span`
   font-size: 24px;
-  color: #00a884;
+  color: ${props => props.colors.main};
   margin-bottom: 4px;
 `;
 
 const AddText = styled.span`
   font-size: 12px;
-  color: #00a884;
+  color: ${props => props.colors.main};
 `;
 
 const CountText = styled.span`
@@ -208,7 +209,7 @@ const AddButton = styled.button`
   align-items: center;
   background: none;
   border: none;
-  color: #00a884;
+  color: ${props => props.colors.main};
   cursor: pointer;
   font-size: 14px;
 `;
@@ -220,7 +221,7 @@ const CircleIcon = styled.span`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: #00a884;
+  background-color: ${props => props.colors.main};
   color: white;
   margin-right: 6px;
   font-size: 16px;
@@ -270,7 +271,7 @@ const ModalFooter = styled.div`
 `;
 
 const RegisterButton = styled.button`
-  background-color: #00a884;
+  background-color: ${props => props.colors.main};
   color: white;
   border: none;
   border-radius: 4px;
@@ -280,11 +281,12 @@ const RegisterButton = styled.button`
   width: 100%;
 
   &:hover {
-    background-color: #008c69;
+    background-color: ${props => props.colors.main}cc;
   }
 `;
 
 const HotelRegistrationModal = ({ onClose }) => {
+  const colors = useColors();
   const [hotelImages, setHotelImages] = useState([null]);
   const [roomImages, setRoomImages] = useState([null]);
   const [showBreakfastPrice, setShowBreakfastPrice] = useState(false);
@@ -336,8 +338,8 @@ const HotelRegistrationModal = ({ onClose }) => {
                     <AddImageButton
                       onClick={() => handleHotelImageUpload(index)}
                     >
-                      <PlusIcon>+</PlusIcon>
-                      <AddText>사진추가</AddText>
+                      <PlusIcon colors={colors}>+</PlusIcon>
+                      <AddText colors={colors}>사진추가</AddText>
                     </AddImageButton>
                   )}
                 </ImageUploadBox>
@@ -470,8 +472,8 @@ const HotelRegistrationModal = ({ onClose }) => {
           <Section>
             <RoomHeader>
               <SectionTitle>객실등록</SectionTitle>
-              <AddButton>
-                <CircleIcon>+</CircleIcon> 객실 추가
+              <AddButton colors={colors}>
+                <CircleIcon colors={colors}>+</CircleIcon> 객실 추가
               </AddButton>
             </RoomHeader>
 
@@ -494,8 +496,8 @@ const HotelRegistrationModal = ({ onClose }) => {
                         <AddImageButton
                           onClick={() => handleRoomImageUpload(index)}
                         >
-                          <PlusIcon>+</PlusIcon>
-                          <AddText>사진추가</AddText>
+                          <PlusIcon colors={colors}>+</PlusIcon>
+                          <AddText colors={colors}>사진추가</AddText>
                         </AddImageButton>
                       )}
                     </ImageUploadBox>
@@ -532,8 +534,8 @@ const HotelRegistrationModal = ({ onClose }) => {
                   }}
                 >
                   <Label style={{ margin: 0 }}>침대 사이즈 / 침대 개수</Label>
-                  <AddButton>
-                    <CircleIcon>+</CircleIcon> 침대 추가
+                  <AddButton colors={colors}>
+                    <CircleIcon colors={colors}>+</CircleIcon> 침대 추가
                   </AddButton>
                 </div>
                 <Input
@@ -546,7 +548,7 @@ const HotelRegistrationModal = ({ onClose }) => {
         </ModalContent>
 
         <ModalFooter>
-          <RegisterButton>등록하기</RegisterButton>
+          <RegisterButton colors={colors}>등록하기</RegisterButton>
         </ModalFooter>
       </ModalContainer>
     </ModalOverlay>

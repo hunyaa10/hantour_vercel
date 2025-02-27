@@ -19,7 +19,7 @@ const TopSection = styled.div`
 `;
 
 const RegisterButton = styled.button`
-  background-color: #16a34a; /* green-600 */
+  background-color: #000000;
   color: white;
   font-weight: 500;
   padding: 0.5rem 1rem;
@@ -29,7 +29,7 @@ const RegisterButton = styled.button`
   transition: background-color 0.2s ease-in-out;
 
   &:hover {
-    background-color: #15803d; /* green-700 */
+    background-color: #333333;
   }
 `;
 
