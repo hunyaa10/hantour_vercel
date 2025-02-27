@@ -17,7 +17,7 @@ const HotelLocation = () => {
       <Map />
 
       {/* 일일버스투어 관광지목록 */}
-      <DayTourContainer>
+      {/* <DayTourContainer>
         <TourTitle>
           <img src={BusIcon} alt="bus-icon" />
           Daily Tour Picks
@@ -27,7 +27,7 @@ const HotelLocation = () => {
             <AttractionList key={attraction}>{attraction}</AttractionList>
           ))}
         </TourAttractionLists>
-      </DayTourContainer>
+      </DayTourContainer> */}
     </LocationContainer>
   );
 };
