@@ -63,12 +63,15 @@ const Nav = ({ activeMenu, userInfo }) => {
         ))}
       </MenuList>
 
-      <PointSection>
-        <PointTitle colors={colors} onClick={() => navigate("/my-info/my-point")}>
+      <PointSection onClick={() => navigate("/my-info/my-point")}>
+        <PointTitle colors={colors}>
           <img src={CoinIcon} alt="coin-icon" />
           My Point
         </PointTitle>
-        <PointValue colors={colors}>{userInfo.point} P</PointValue>
+        <PointValue colors={colors}>
+          {userInfo.point} P
+          <img src={ArrowIcon} alt="arrow-icon" className="arrow-icon" />
+        </PointValue>
       </PointSection>
     </NavContainer>
   );
@@ -137,7 +140,6 @@ const MenuItem = styled.div`
   }
 
   img {
-    margin-right: 1rem;
     width: 24px;
     height: 24px;
   }
@@ -153,7 +155,8 @@ const MenuItem = styled.div`
 const MenuItemContent = styled.div`
   display: flex;
   flex-direction: column;
-
+  margin-left: 0.5rem;
+  
   span:first-of-type {
     font-weight: 500;
   }
@@ -172,6 +175,11 @@ const PointSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e5e7eb;
+  }
 `;
 
 const PointTitle = styled.h2`
@@ -179,7 +187,6 @@ const PointTitle = styled.h2`
   color: #4b5563;
   display: flex;
   align-items: center;
-  cursor: pointer;
 
   img {
     width: 20px;
@@ -196,4 +203,13 @@ const PointValue = styled.p`
   font-size: 1.25rem;
   font-weight: bold;
   color: ${props => props.colors.main};
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .arrow-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+  }
 `;

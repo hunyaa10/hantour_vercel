@@ -26,8 +26,8 @@ const PaybackModal = ({
       setErrorMessage("Payback amount cannot exceed your total points.");
       return false;
     }
-    if (numAmount < 10000) {
-      setErrorMessage("Minimum payback amount is 10,000 points.");
+    if (numAmount < 100000) {
+      setErrorMessage("Minimum payback amount is 100,000 points.");
       return false;
     }
     if (numAmount % 1000 !== 0) {
@@ -111,7 +111,7 @@ const PaybackModal = ({
           <ContentText color={colors.sub}>
             How much would you like to pay back?
             <span>
-              (Payback is available from 10,000 points, in increments of 1,000
+              (Payback is available from 100,000 points, in increments of 1,000
               points)
             </span>
           </ContentText>
@@ -119,7 +119,7 @@ const PaybackModal = ({
           <InputWrapper>
             <Input
               type="number"
-              min="10000"
+              min="100000"
               step="1000"
               value={paybackAmount}
               onChange={handleInputChange}

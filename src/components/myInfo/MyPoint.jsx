@@ -69,7 +69,7 @@ const MyPoint = () => {
           </PointAmountBox>
 
           <PointAmountScript color={colors.sub}>
-            Payback is available with cash from more than 10,000 points.
+            Payback is available from 100,000 points.
           </PointAmountScript>
         </PointBox>
 
@@ -90,12 +90,12 @@ const MyPoint = () => {
                   ) : (
                     <HistoryAmount color={colors.main}>
                       +{history.points} P
-                      <HistoryPrice>(₩{history.amount})</HistoryPrice>
+                      {/* <HistoryPrice>(₩{history.amount})</HistoryPrice> */}
                     </HistoryAmount>
                   )}
-                  <HistoryStatus color={colors.sub}>
+                  {/* <HistoryStatus color={colors.sub}>
                     {history.status}
-                  </HistoryStatus>
+                  </HistoryStatus> */}
                 </HistoryItem>
               ))}
             </HistoryList>
@@ -255,7 +255,7 @@ const HistoryList = styled.div`
 const HistoryItem = styled.div`
   padding: 1rem 0;
   display: grid;
-  grid-template-columns: 1fr 2.5fr 1.5fr 1fr;
+  grid-template-columns: 1fr 2.5fr 1.5fr;
   align-items: center;
   border-bottom: 1px solid #ececec;
   text-align: center;
