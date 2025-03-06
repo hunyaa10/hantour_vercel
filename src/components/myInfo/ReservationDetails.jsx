@@ -127,6 +127,19 @@ const ReservationDetails = ({ state }) => {
         </PriceBox>
       </HotelDetailContainer>
 
+      {/* 임시 취소 정책 */}
+      <CancellationPolicyContainer>
+        <ContainerTitle>Cancellation Policy</ContainerTitle>
+        <PolicyContent>
+          <p>Full refund available before December 30 (Mon).</p>
+          <p>
+            After December 30, 2024, 00:01 (local time of the accommodation),
+            cancellations, modifications, or no-shows will incur a hotel fee
+            equivalent to 100% of the total reservation amount.
+          </p>
+        </PolicyContent>
+      </CancellationPolicyContainer>
+
       <CustomButton onClick={() => setIsShowCancelModal(true)}>
         Cancel Reservation
       </CustomButton>
@@ -332,4 +345,21 @@ const PriceBox = styled.div`
   justify-content: space-between;
   border-top: 1px solid #ececec;
   font-weight: 600;
+`;
+
+const CancellationPolicyContainer = styled.div``;
+
+const PolicyContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f8f8;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+
+  @media screen and (max-width: 1440px) {
+    font-size: 0.9rem;
+  }
 `;

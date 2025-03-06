@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import LogoIcon from "@assets/logo/logo-H.svg";
-import LogoName from "@assets/logo/logo-Hantour.svg";
+import LogoName from "@assets/logo/logo-kongtour.svg";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
@@ -11,13 +10,12 @@ const Footer = () => {
       <Container>
         <FooterInner>
           <Logo>
-            {/* <img src={LogoIcon} alt="logo-icon" className="logo-icon" /> */}
             <img src={LogoName} alt="logo-name" className="logo-name" />
           </Logo>
           <Script>
             <TextBox>
               <Text>
-                (주) Hantour
+                (주) Kongtour
                 <br />
                 대표이사: 홍길동 | 사업자등록번호: 000-00-00000
                 <br />
