@@ -39,13 +39,13 @@ const HotelRooms = () => {
   };
 
   const handleClickRoomResercation = () => {
-    const isLoggedIn = localStorage.getItem("token");
+    // const isLoggedIn = localStorage.getItem("token");
 
-    if (!isLoggedIn) {
-      alert("Please login to make a hotel reservation");
-      navigate("/login");
-      return;
-    }
+    // if (!isLoggedIn) {
+    //   alert("Please login to make a hotel reservation");
+    //   navigate("/login");
+    //   return;
+    // }
 
     navigate("/reservation-complete");
   };

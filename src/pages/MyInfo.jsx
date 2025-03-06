@@ -16,6 +16,10 @@ const MyInfo = () => {
   });
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
     const isAdmin = userInfo.email === "admin@example.com";
 
