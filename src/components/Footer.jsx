@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-
-import LogoName from "@assets/logo/logo-kongtour.svg";
 import { Link } from "react-router-dom";
+import { footerData } from "@data/footerData";
+
+import LogoName from "@assets/logo/logo-Kongtour.svg";
 
 const Footer = () => {
   return (
@@ -15,17 +16,16 @@ const Footer = () => {
           <Script>
             <TextBox>
               <Text>
-                (주) Kongtour
+                {footerData.companyName}
                 <br />
-                대표이사: 홍길동 | 사업자등록번호: 000-00-00000
+                대표이사: {footerData.ceo} | 사업자등록번호: {footerData.businessNumber}
                 <br />
-                연락처: 010-0000-0000 | 이메일 : admin@gmail.com
+                연락처: {footerData.phone} | 이메일: {footerData.email}
               </Text>
               <Text>
-                주소: 서울특별시 영등포구 의사당대로 83, 8 -112호 (여의도동,
-                오투타워)
+                주소: {footerData.address}
                 <br />
-                통신판매업자신고: 강남 - 02096호
+                통신판매업자신고: {footerData.businessLicense}
               </Text>
             </TextBox>
           </Script>
