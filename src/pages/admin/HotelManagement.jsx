@@ -56,7 +56,7 @@ const HotelManagement = () => {
     { key: "availableRooms", label: "예약가능 룸 수", type: "text" },
     { key: "reservationCount", label: "예약 건 수", type: "text" },
     { key: "hotelNumber", label: "호텔 번호", type: "text" },
-    { key: "review", label: "호텔 리뷰", type: "button" },
+    // { key: "review", label: "호텔 리뷰", type: "button" },
     { key: "edit", label: "호텔 수정", type: "editButton" },
   ];
 
