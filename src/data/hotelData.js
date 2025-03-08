@@ -1,161 +1,87 @@
-import BestWesternHotel from "@assets/images/bestwestern-hotel.jpg";
-import LotteHotel from "@assets/images/lotte-hotel.jpg";
+import OrakaiHotelMain from "@assets/images/orakaiHotel/orakai-main.jpg";
+import OrakaiHotelSub from "@assets/images/orakaiHotel/orakai-sub.jpg";
+import OrakaiHotelRoom from "@assets/images/orakaiHotel/orakai-room.jpg";
+
+import OrakaiHotelPool from "@assets/images/orakaiHotel/facilities/orakai-pool.png";
+import OrakaiHotelGym from "@assets/images/orakaiHotel/facilities/orakai-gym.jpg";
+import OrakaiHotelSauna from "@assets/images/orakaiHotel/facilities/orakai-sauna.png";
+import OrakaiHotelPlayroom from "@assets/images/orakaiHotel/facilities/orakai-playroom.png";
+import OrakaiHotelRestaurant from "@assets/images/orakaiHotel/facilities/restaurant.jpg";
 
 const hotelData = [
-    {
-      id: 1,
-      name: "Lotte Hotel Seoul",
-      stars: 5,
-      location: "Seoul, Myeongdong",
-      rating: 4.8,
-      reviews: 1250,
-      image: LotteHotel, // 여기서 import한 이미지 사용
-      amenities: ["Breakfast", "Pool"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "169,000",
-          perks: ["Free cancellation", "Breakfast included"],
-        },
-        {
-          type: "Superior Double Room",
-          price: "204,000",
-          perks: ["Free cancellation", "Breakfast included"],
-        },
-      ]
+  {
+    id: 1,
+    name: "Orakai Insadong Suites",
+    stars: 4,
+    region: "Seoul",
+    location: "Jongno-Gu, Seoul",
+    address: "8, Insadong 4-gil, Jongno-Gu, 03163 Seoul, Republic of Korea",
+    phone: "02-6262-8888",
+    rating: 4.5,
+    reviews: 856,
+    images: {
+      main: OrakaiHotelMain,
+      sub: OrakaiHotelSub,
+      room: OrakaiHotelRoom,
+      facilities: {
+        pool: OrakaiHotelPool,
+        gym: OrakaiHotelGym,
+        sauna: OrakaiHotelSauna,
+        playroom: OrakaiHotelPlayroom,
+        restaurant: OrakaiHotelRestaurant
+      }
     },
-    {
-      id: 2,
-      name: "Best Western Busan",
-      stars: 4,
-      location: "Busan, Haeundae",
-      rating: 4.5,
-      reviews: 892,
-      image: BestWesternHotel,
-      amenities: ["Breakfast", "Fitness Center"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "159,000",
-          perks: ["Free cancellation"],
-        },
-        {
-          type: "Superior Double Room",
-          price: "189,000",
-          perks: ["Free cancellation"],
-        },
-      ]
+    amenities: [
+      "Free Wi-Fi",
+      "Parking",
+      "Indoor Swimming Pool",
+      "Sauna & Steam Room",
+      "Gymnasium",
+      "Children's Playroom"
+    ],
+    checkIn: "16:00",
+    checkOut: "11:00",
+    cancellationPolicy: "Free cancellation is available up to 14 days before check-in date.",
+    breakfast: {
+      available: true,
+      price: "18,000"
     },
-    {
-      id: 3,
-      name: "Best Western Jeju",
-      stars: 4,
-      location: "Jeju, City Center",
-      rating: 4.4,
-      reviews: 678,
-      image: BestWesternHotel,
-      amenities: ["Breakfast", "Pool"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "149,000",
-          perks: ["Free cancellation"],
+    rooms: [
+      {
+        type: "One Bedroom",
+        defaultCapacity: 2,
+        bedType: "King bed (1)",
+        price: {
+          weekday: "240,000",
+          friday: "250,000",
+          saturday: "265,000"
         },
-        {
-          type: "Superior Double Room",
-          price: "179,000",
-          perks: ["Free cancellation"],
+        perks: ["Free cancellation", "Free Wi-Fi"]
+      },
+      {
+        type: "Two Bedroom Premier",
+        defaultCapacity: 3,
+        bedType: "King bed (1) + Single bed (1)",
+        price: {
+          weekday: "300,000",
+          friday: "330,000",
+          saturday: "350,000"
         },
-      ]
-    },
-    {
-      id: 4,
-      name: "Best Western Incheon Airport",
-      stars: 4,
-      location: "Incheon, Airport",
-      rating: 4.3,
-      reviews: 945,
-      image: BestWesternHotel,
-      amenities: ["Breakfast"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "139,000",
-          perks: ["Free cancellation"],
+        perks: ["Free cancellation", "Free Wi-Fi"]
+      },
+      {
+        type: "Three Bedroom",
+        defaultCapacity: 4,
+        bedType: "King bed (1) + Single bed (2)",
+        price: {
+          weekday: "370,000",
+          friday: "410,000",
+          saturday: "430,000"
         },
-        {
-          type: "Superior Double Room",
-          price: "169,000",
-          perks: ["Free cancellation"],
-        },
-      ]
-    },
-    {
-      id: 5,
-      name: "Best Western Gangneung",
-      stars: 4,
-      location: "Gangneung, Beach",
-      rating: 4.2,
-      reviews: 456,
-      image: BestWesternHotel,
-      amenities: ["Breakfast", "Parking"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "129,000",
-          perks: ["Free cancellation"],
-        },
-        {
-          type: "Superior Double Room",
-          price: "159,000",
-          perks: ["Free cancellation"],
-        },
-      ]
-    },
-    {
-      id: 6,
-      name: "Best Western Daejeon",
-      stars: 4,
-      location: "Daejeon, Yuseong",
-      rating: 4.1,
-      reviews: 567,
-      image: BestWesternHotel,
-      amenities: ["Breakfast", "Restaurant"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "119,000",
-          perks: ["Free cancellation"],
-        },
-        {
-          type: "Superior Double Room",
-          price: "149,000",
-          perks: ["Free cancellation"],
-        },
-      ]
-    },
-    {
-      id: 7,
-      name: "Best Western Gwangju",
-      stars: 4,
-      location: "Gwangju, Downtown",
-      rating: 4.0,
-      reviews: 432,
-      image: BestWesternHotel,
-      amenities: ["Breakfast", "Restaurant"],
-      rooms: [
-        {
-          type: "Superior Twin Room",
-          price: "109,000",
-          perks: ["Free cancellation"],
-        },
-        {
-          type: "Superior Double Room",
-          price: "139,000",
-          perks: ["Free cancellation"],
-        },
-      ]
-    }
-  ];
-  
+        perks: ["Free cancellation", "Free Wi-Fi"]
+      }
+    ]
+  }
+];
+
 export default hotelData;

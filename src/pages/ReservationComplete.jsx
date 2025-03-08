@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import CustomButton from "@components/custom/CustomButton";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,31 @@ import { useColors } from "@context/ColorContext";
 
 import CompleteImg from "@assets/images/complete.jpg";
 
+const reservationInfo = {
+  state: "booked",
+  name: "Orakai Insadong Suites",
+  reservation_number: 72973820281017,
+  night: 1,
+  adults: 2,
+  child: 0,
+  room_type: "One Bedroom(1)",
+  check_in: {
+    date: "2025-02-13",
+    time: "15:00"
+  },
+  check_out: {
+    date: "2025-02-14",
+    time: "11:00"
+  }
+};
+
 const ReservationComplete = () => {
   const colors = useColors();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleClickViewDetail = () => {
     navigate("/my-info/booking-history");
@@ -23,27 +45,27 @@ const ReservationComplete = () => {
       <InfoContainer>
         <InfoTitle>
           <h2>Your reservation is Confirmed!</h2>
-          <p>Lotte Hotel Seoul</p>
+          <p>{reservationInfo.name}</p>
           <div>
-            Reservation #<span>123456</span>
+            Reservation #<span>{reservationInfo.reservation_number}</span>
           </div>
         </InfoTitle>
 
         <InfoRoomBox>
           <InfoRoomName>
-            <p>Premium Family Room</p>
-            <span>1</span>
+            <p>{reservationInfo.room_type}</p>
+            <span>{reservationInfo.night}</span>
           </InfoRoomName>
           <InfoRoomDate>
             <DateCheckIn>
               <span>Check-in</span>
-              <div>Thu,Feb 13,</div>
-              <div>2025, 3:00 PM</div>
+              <div>{new Date(reservationInfo.check_in.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })},</div>
+              <div>{new Date(reservationInfo.check_in.date).getFullYear()}, {reservationInfo.check_in.time}</div>
             </DateCheckIn>
             <DateCheckOut>
               <span>Check-out</span>
-              <div>Fri,Feb 14,</div>
-              <div>2025, 11:00 AM</div>
+              <div>{new Date(reservationInfo.check_out.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })},</div>
+              <div>{new Date(reservationInfo.check_out.date).getFullYear()}, {reservationInfo.check_out.time}</div>
             </DateCheckOut>
           </InfoRoomDate>
         </InfoRoomBox>

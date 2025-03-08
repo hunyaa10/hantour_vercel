@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import hotelData from "@data/hotelData";
@@ -10,6 +10,16 @@ import HotelRooms from "@components/hotelDetail/HotelRooms";
 const HotelDetail = () => {
   const { hotelName } = useParams();
   const hotel = hotelData.find(h => h.name === decodeURIComponent(hotelName));
+  const [breakfastPrice, setBreakfastPrice] = useState(0);
+  const [totalPersons, setTotalPersons] = useState(2);
+
+  const handleBreakfastChange = (price) => {
+    setBreakfastPrice(price);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!hotel) {
     return <div>Hotel not found</div>;
@@ -17,8 +27,16 @@ const HotelDetail = () => {
 
   return (
     <Wrapper>
-      <HotelInfomation hotel={hotel} />
-      <HotelRooms hotel={hotel} />
+      <HotelInfomation 
+        hotel={hotel} 
+        onBreakfastChange={handleBreakfastChange}
+        onPersonsChange={setTotalPersons}
+      />
+      <HotelRooms 
+        hotel={hotel} 
+        breakfastPrice={breakfastPrice}
+        totalPersons={totalPersons}
+      />
       <HotelLocation hotel={hotel} />
       <HotelReview hotel={hotel} />
     </Wrapper>

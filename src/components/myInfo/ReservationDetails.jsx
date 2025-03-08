@@ -4,25 +4,42 @@ import CustomButton from "@components/custom/CustomButton";
 import { useColors } from "@context/ColorContext";
 import ReservationCancelModal from "./ReservationCancelModal";
 
-import HotelImage from "@assets/images/myinfo-hotel-img.jpg";
+import OrakaiHotelSub from "@assets/images/orakaiHotel/orakai-sub.jpg";
+
 import PinIcon from "@assets/icons/pin.svg";
-import ShelterIcon from "@assets/icons/night-shelter-color.svg";
 
 const hotelInfo = [
   {
     state: "booked",
-    name: "Lotte Hotel Seoul",
+    name: "Orakai Insadong Suites",
     reservation_number: 72973820281017,
     night: 2,
     adults: 2,
     child: 0,
-    room_name: "standard room",
-    check_in: "2025-02-18, 3:00PM",
-    check_out: "2025-02-19, 11:00AM",
-    address: "30, Eulji-ro, Jung-gu, Seoul",
-    one_night_price: 204000,
+    room_type: "One Bedroom(1)",
+    check_in: "2025-02-18, 16:00",
+    check_out: "2025-02-20, 11:00",
+    address: "8, Insadong 4-gil, Jongno-Gu, 03163 Seoul, Republic of Korea",
+    one_night_price: 240000,
     tax: 12300,
     payment_method: "Visa Card",
+    images: {
+      sub: OrakaiHotelSub,
+    },
+    phone: "02-6262-8888",
+    amenities: [
+      "Free Wi-Fi",
+      "Parking",
+      "Indoor Swimming Pool",
+      "Sauna & Steam Room",
+      "Gymnasium",
+      "Children's Playroom"
+    ],
+    breakfast: {
+      available: true,
+      price: "18,000"
+    },
+    cancellationPolicy: "Free cancellation is available up to 14 days before check-in date."
   },
 ];
 
@@ -33,8 +50,12 @@ const ReservationDetails = ({ state }) => {
   };
 
   const colors = useColors();
-
   const [isShowCancelModal, setIsShowCancelModal] = useState(false);
+
+  // 가격 계산 함수들
+  const calculateRoomPrice = () => hotel.one_night_price * hotel.night;
+  const calculateBreakfastPrice = () => parseInt(hotel.breakfast.price.replace(',', '')) * hotel.adults;
+  const calculateTax = () => Math.floor(calculateRoomPrice() * 0.1); // 10% 세금
 
   useEffect(() => {
     if (isShowCancelModal) {
@@ -57,14 +78,13 @@ const ReservationDetails = ({ state }) => {
       <HotelName>{hotel.name}</HotelName>
 
       <HotelInfoContainer>
-        <img src={HotelImage} alt="hotel-img" />
+        <HotelImage src={hotel.images.sub} />
         <InfoTextBox>
           <State color={colors.main}>{hotel.state}</State>
           <RoomInfo $bgcolor={colors.subLight}>
-            <img src={ShelterIcon} alt="shelter-icon" />
             <RoomInfoText $textcolor={colors.sub}>
               {hotel.night} Nights, {hotel.adults} Adults
-              {hotel.child > 0 && `, ${hotel.child} Child`}, {hotel.room_name}
+              {hotel.child > 0 && `, ${hotel.child} Child`}, {hotel.room_type}
               <br />
               <span>Reservation</span>#{hotel.reservation_number}
             </RoomInfoText>
@@ -97,45 +117,48 @@ const ReservationDetails = ({ state }) => {
         <ContainerTitle>Reservation Details</ContainerTitle>
         <RoomeInfoDetail>
           <DetailInfoBox>
-            <DetailInfoName>Room Type</DetailInfoName>
-            <DetailInfoContents>{hotel.room_name}</DetailInfoContents>
+            <DetailInfoName>Room Rate ({hotel.night} Nights)</DetailInfoName>
+            <DetailInfoContents>
+              ₩{calculateRoomPrice().toLocaleString()}
+            </DetailInfoContents>
+          </DetailInfoBox>
+
+          <DetailInfoBox>
+            <DetailInfoName>Breakfast ({hotel.adults} persons)</DetailInfoName>
+            <DetailInfoContents>
+              ₩{calculateBreakfastPrice().toLocaleString()}
+            </DetailInfoContents>
+          </DetailInfoBox>
+
+          <DetailInfoBox>
+            <DetailInfoName>Tax (10%)</DetailInfoName>
+            <DetailInfoContents>
+              ₩{calculateTax().toLocaleString()}
+            </DetailInfoContents>
           </DetailInfoBox>
 
           <DetailInfoBox>
             <DetailInfoName>Payment Method</DetailInfoName>
             <DetailInfoContents>{hotel.payment_method}</DetailInfoContents>
           </DetailInfoBox>
-
-          <DetailInfoBox>
-            <DetailInfoName>Price per Night</DetailInfoName>
-            <DetailInfoContents>
-              ₩{hotel.one_night_price.toLocaleString()}
-            </DetailInfoContents>
-          </DetailInfoBox>
-
-          <DetailInfoBox>
-            <DetailInfoName>Tax</DetailInfoName>
-            <DetailInfoContents>
-              ₩{hotel.tax.toLocaleString()}
-            </DetailInfoContents>
-          </DetailInfoBox>
         </RoomeInfoDetail>
 
         <PriceBox>
-          <h4>Total Amount</h4>₩
-          {(hotel.one_night_price * hotel.night + hotel.tax).toLocaleString()}
+          <h4>Total Amount</h4>
+          <div>₩
+            {(calculateRoomPrice() + calculateBreakfastPrice() + calculateTax()).toLocaleString()}
+          </div>
         </PriceBox>
       </HotelDetailContainer>
 
-      {/* 임시 취소 정책 */}
       <CancellationPolicyContainer>
         <ContainerTitle>Cancellation Policy</ContainerTitle>
         <PolicyContent>
-          <p>Full refund available before December 30 (Mon).</p>
+          <p>{hotel.cancellationPolicy}</p>
           <p>
-            After December 30, 2024, 00:01 (local time of the accommodation),
-            cancellations, modifications, or no-shows will incur a hotel fee
-            equivalent to 100% of the total reservation amount.
+            After the free cancellation period, cancellations, modifications, 
+            or no-shows will incur a hotel fee equivalent to 100% of the total 
+            reservation amount.
           </p>
         </PolicyContent>
       </CancellationPolicyContainer>
@@ -166,18 +189,20 @@ const HotelInfoContainer = styled.div`
   display: flex;
   gap: 1rem;
 
-  img {
-    width: 40%;
-  }
-
   @media screen and (max-width: 1024px) {
     gap: 0.5rem;
-
-    img {
-      width: 35%;
-    }
   }
 `;
+
+const HotelImage = styled.div`
+  width: 40%;
+  aspect-ratio: 1 / 1;
+  background-image: url(${props => props.src});
+  background-position: top center;
+  background-size: cover;
+  border-radius: 0.5rem;
+`;
+
 const ContainerTitle = styled.h4`
   padding-bottom: 1rem;
 `;

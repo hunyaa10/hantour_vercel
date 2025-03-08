@@ -8,7 +8,7 @@ import XIcon from "@assets/icons/x-mark.svg";
 import MinusIcon from "@assets/icons/minus.svg";
 import PlusIcon from "@assets/icons/plus.svg";
 
-const PersonsOption = () => {
+const PersonsOption = ({ onPersonsChange }) => {
   const colors = useColors();
 
   const modalRef = useRef(null);
@@ -36,6 +36,10 @@ const PersonsOption = () => {
       );
     }
   };
+
+  useEffect(() => {
+    onPersonsChange?.(adults + children);
+  }, [adults, children, onPersonsChange]);
 
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {

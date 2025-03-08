@@ -33,9 +33,11 @@ const HotelSearch = () => {
     }));
   }, [areaFromUrl]);
 
-  // 필터링 로직 수정 - 검색어와 지역 모두 고려
+  // 필터링 로직 수정 - region 필드 사용
   const filteredHotels = hotelData.filter(hotel => {
-    const matchesLocation = filters.location === "All" ? true : hotel.location.includes(filters.location);
+    const matchesLocation = filters.location === "All" 
+      ? true 
+      : hotel.region === filters.location || hotel.location.includes(filters.location);
     const matchesSearch = searchQuery 
       ? hotel.name.toLowerCase().includes(searchQuery.toLowerCase())
       : true;

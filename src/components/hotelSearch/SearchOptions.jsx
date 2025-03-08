@@ -20,7 +20,6 @@ const FilterSidebar = ({
   const currentSearch = queryParams.get("search") || "";
 
   const handleClickCompleteBtn = () => {
-    // 현재 검색어를 유지하면서 area만 업데이트
     const newParams = new URLSearchParams();
     if (currentSearch) newParams.set("search", currentSearch);
     if (filters.location) newParams.set("area", filters.location);

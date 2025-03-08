@@ -1,12 +1,12 @@
-import SeoulTower from "@assets/images/seoul-tower.jpg";
-import BukchonHanok from "@assets/images/bukchon-hanok.jpg";
-import Gyeongbokgung from "@assets/images/gyeongbokgung.jpg";
-import Cheonggyecheon from "@assets/images/cheonggyecheon.jpg";
-import DDP from "@assets/images/ddp.jpg";
-import NationalMuseum from "@assets/images/national-museum.jpg";
-import Deoksugung from "@assets/images/deoksugung.jpg";
-import Everland from "@assets/images/everland.jpg";
-import BusanCinema from "@assets/images/busan-cinema.jpg";
+import SeoulTower from "@assets/images/mainTrip/seoul-tower.jpg";
+import BukchonHanok from "@assets/images/mainTrip/bukchon-hanok.jpg";
+import Gyeongbokgung from "@assets/images/mainTrip/gyeongbokgung.jpg";
+import Cheonggyecheon from "@assets/images/mainTrip/cheonggyecheon.jpg";
+import DDP from "@assets/images/mainTrip/ddp.jpg";
+import NationalMuseum from "@assets/images/mainTrip/national-museum.jpg";
+import Deoksugung from "@assets/images/mainTrip/deoksugung.jpg";
+import Everland from "@assets/images/mainTrip/everland.jpg";
+import BusanCinema from "@assets/images/mainTrip/busan-cinema.jpg";
 
 export const attractionMockData = [
   {

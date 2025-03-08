@@ -6,7 +6,7 @@ import HotelRoom from "./HotelRoom";
 
 const HotelCard = ({ hotel }) => {
   const navigate = useNavigate();
-  const { name, stars, location, rating, reviews, image, amenities, rooms } = hotel;
+  const { name, stars, location, rating, reviews, images, amenities, rooms } = hotel;
 
   const handleClick = () => {
     navigate(`/hotel-detail/${encodeURIComponent(name)}`);
@@ -15,7 +15,7 @@ const HotelCard = ({ hotel }) => {
   return (
     <HotelCardWrapper onClick={handleClick}>
       <HotelImageContainer>
-        <HotelImage src={image} alt={name} />
+        <HotelImage src={images.main} alt={name} />
         <StarBadge>{stars}-Star</StarBadge>
       </HotelImageContainer>
 
@@ -36,7 +36,7 @@ const HotelCard = ({ hotel }) => {
           </HotelLocation>
 
           <AmenitiesList>
-            {amenities.map((amenity, index) => (
+            {amenities.slice(0, 3).map((amenity, index) => (
               <AmenityBadge key={index}>{amenity}</AmenityBadge>
             ))}
           </AmenitiesList>
@@ -67,7 +67,6 @@ const HotelCardWrapper = styled.div`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
-  max-height: 250px;
 
   &:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -78,7 +77,7 @@ const HotelCardWrapper = styled.div`
 const HotelImageContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 250px;
   overflow: hidden;
 `;
 
@@ -87,6 +86,9 @@ const HotelImage = styled.img`
   height: 100%;
   object-fit: cover;
   object-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const StarBadge = styled.div`
@@ -105,21 +107,18 @@ const HotelInfo = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: 1rem;
 `;
 
 const TopSection = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 `;
 
 const BottomSection = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 `;
 
 const HotelHeader = styled.div`

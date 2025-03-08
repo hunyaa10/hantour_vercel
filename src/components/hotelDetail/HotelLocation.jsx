@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { hotelDetailData } from "@data/hotelDetailData";
 
 import PinIcon from "@assets/icons/pin.svg";
 import BusIcon from "@assets/icons/bus-trip.svg";
 
-const HotelLocation = () => {
+const HotelLocation = ({ hotel }) => {
   return (
     <LocationContainer>
       <Title>Location</Title>
       <Location>
         <img src={PinIcon} alt="pin-icon" />
-        {hotelDetailData.address}
+        {hotel.address}
       </Location>
       {/* 구글맵 연결 */}
       <Map />

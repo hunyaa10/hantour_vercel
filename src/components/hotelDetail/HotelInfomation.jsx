@@ -2,76 +2,89 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useColors } from "@context/ColorContext";
 import PersonsOption from "../PersonsOption";
-import { hotelDetailData } from "@data/hotelDetailData";
+import ImageSlideModal from "./ImageSlideModal";
 
-import ForwardArrow from "@assets/icons/arrow-forward.svg";
-import BackArrow from "@assets/icons/arrow-back.svg";
 import PinIcon from "@assets/icons/pin.svg";
 import ClockIcon from "@assets/icons/clock.svg";
 
-const hotelImages = ["1", "2", "3"];
-
-const HotelInfomation = () => {
+const HotelInfomation = ({ hotel, onBreakfastChange, onPersonsChange }) => {
   const colors = useColors();
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isBreakfastIncluded, setIsBreakfastIncluded] = useState(false);
+  const [totalPersons, setTotalPersons] = useState(2); // 기본값 2명
+
+  const allImages = [
+    { src: hotel.images.main, label: 'Main View' },
+    ...(hotel.images.facilities ? 
+      Object.entries(hotel.images.facilities).map(([key, value]) => ({
+        src: value,
+        label: key.charAt(0).toUpperCase() + key.slice(1)
+      })) 
+      : []
+    )
+  ];
 
   const goToPrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
+    setCurrentIndex((prevIndex) => 
+      prevIndex === 0 ? allImages.length - 1 : prevIndex - 1
+    );
   };
+
   const goToNext = () => {
-    if (currentIndex < hotelImages.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
+    setCurrentIndex((prevIndex) => 
+      prevIndex === allImages.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   const handleBreakfastChange = () => {
-    setIsBreakfastIncluded((prevState) => !prevState);
+    const newValue = !isBreakfastIncluded;
+    setIsBreakfastIncluded(newValue);
+    const breakfastPrice = Number(hotel.breakfast.price.replace(/,/g, ''));
+    onBreakfastChange?.(newValue ? breakfastPrice * totalPersons : 0);
+  };
+
+  const handlePersonsChange = (persons) => {
+    setTotalPersons(persons);
+    onPersonsChange?.(persons);
+    if (isBreakfastIncluded) {
+      const breakfastPrice = Number(hotel.breakfast.price.replace(/,/g, ''));
+      onBreakfastChange?.(breakfastPrice * persons);
+    }
   };
 
   return (
     <InfoWrapper>
-      <ImagesContainer>
-        <Images style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-          {hotelImages.map((img) => (
-            <Image key={img}>{img}</Image>
-          ))}
-        </Images>
-        <ArrowBox>
-          <ArrowBtn onClick={goToPrevious}>
-            <img src={BackArrow} alt="back-arrow" />
-          </ArrowBtn>
-          <ArrowBtn onClick={goToNext}>
-            <img src={ForwardArrow} alt="forward-arrow" />
-          </ArrowBtn>
-        </ArrowBox>
-      </ImagesContainer>
+      <MainImageContainer 
+        bgImage={hotel.images.main} 
+        onClick={() => setIsModalOpen(true)}
+      >
+        <ImageOverlay>
+          <ViewAllPhotos>View All Photos</ViewAllPhotos>
+        </ImageOverlay>
+      </MainImageContainer>
 
       <InfoContainer>
         <InfoBox>
           <Name color={colors.sub}>
-            {hotelDetailData.name}
-            <span>{hotelDetailData.rating}-Star</span>
+            {hotel.name}
+            <span>{hotel.stars}-Star</span>
           </Name>
 
           <Address>
             <img src={PinIcon} alt="pin-icon" />
-            {hotelDetailData.address}
+            {hotel.address}
           </Address>
 
           <TimeBox>
             <img src={ClockIcon} alt="clock-icon" />
-            Check-in {hotelDetailData.checkIn} | Check-out{" "}
-            {hotelDetailData.checkOut}
+            Check-in {hotel.checkIn} | Check-out {hotel.checkOut}
           </TimeBox>
 
           <ServicesBox>
             <p>Amenities / Services</p>
             <Services>
-              {hotelDetailData.amenities.map((service) => (
+              {hotel.amenities.map((service) => (
                 <Service key={service}>{service}</Service>
               ))}
             </Services>
@@ -88,15 +101,20 @@ const HotelInfomation = () => {
             <div>
               <p>Breakfast Included</p>
               <span>
-                + ₩
-                {hotelDetailData.breakfastServices.breakfast.price.toLocaleString()}
+                + ₩{hotel.breakfast.price}
               </span>
             </div>
           </MealLabel>
-
-          <PersonsOption />
+          <PersonsOption onPersonsChange={handlePersonsChange} />
         </SelectionBox>
       </InfoContainer>
+
+      {isModalOpen && (
+        <ImageSlideModal 
+          images={allImages} 
+          onClose={() => setIsModalOpen(false)} 
+        />
+      )}
     </InfoWrapper>
   );
 };
@@ -107,55 +125,49 @@ const InfoWrapper = styled.div`
   width: 100%;
 `;
 
-const ImagesContainer = styled.div`
-  margin: auto;
+const ImageOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+`;
+
+const MainImageContainer = styled.div`
+  position: relative;
   width: 100%;
   height: 600px;
-  background-color: #ccc;
+  cursor: pointer;
   overflow: hidden;
-  position: relative;
+  background-image: url(${props => props.bgImage});
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+
+  &:hover {
+    ${ImageOverlay} {
+      opacity: 1;
+    }
+  }
 
   @media screen and (max-width: 1280px) {
-    width: 80%;
     height: 400px;
   }
 `;
-const Images = styled.div`
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-`;
-const Image = styled.div`
-  width: 100%;
-  height: 100%;
-  flex-shrink: 0;
-  text-align: center;
-  font-size: 100px;
-`;
-const ArrowBox = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-`;
-const ArrowBtn = styled.button`
-  padding-left: 12px;
-  opacity: 0.5;
 
-  &:hover {
-    opacity: 1;
-  }
-
-  @media screen and (max-width: 1280px) {
-    padding-left: 8px;
-
-    img {
-      width: 32px;
-    }
-  }
+const ViewAllPhotos = styled.div`
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.5);
 `;
 
 const InfoContainer = styled.div`
