@@ -6,7 +6,7 @@ import CustomButton from "@components/custom/CustomButton";
 import EmailVerifymodal from "@components/Login/EmailVerifymodal";
 import { sendVerificationEmailApi, signupApi, verifyEmailApi } from "@api/axiosApi";
 
-import LogoName from "@assets/logo/logo-kongtour.svg";
+import LogoName from "@assets/logo/logo-Kongtour.svg";
 import EyeOffIcon from "@assets/icons/eye-off-outline.svg";
 import XIcon from "@assets/icons/x-mark.svg";
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useColors } from "@context/ColorContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-import LogoName from "@assets/logo/logo-kongtour.svg";
+import LogoName from "@assets/logo/logo-Kongtour.svg";
 
 const Header = () => {
   const colors = useColors();
