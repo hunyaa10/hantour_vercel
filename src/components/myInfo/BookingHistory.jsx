@@ -3,13 +3,51 @@ import styled from "styled-components";
 import PendingApproval from "./PendingApproval";
 import Approved from "./Approved";
 import ReservationDetails from "./ReservationDetails";
+import OrakaiHotelSub from "@assets/images/orakaiHotel/orakai-sub.jpg";
 
 import XIcon from "@assets/icons/x-mark.svg";
+
+const bookingData = {
+  pending: {
+    state: "pending",
+    name: "Orakai Insadong Suites",
+    reservation_number: 72973820281017,
+    night: 2,
+    adults: 2,
+    child: 0,
+    room_type: "One Bedroom(1)",
+    check_in: "2025-02-18, 16:00",
+    check_out: "2025-02-20, 11:00",
+    address: "8, Insadong 4-gil, Jongno-Gu, 03163 Seoul, Republic of Korea",
+    one_night_price: 240000,
+    tax: 12300,
+    payment_method: "Visa Card",
+    images: {
+      sub: OrakaiHotelSub,
+    },
+    phone: "02-6262-8888",
+    amenities: [
+      "Free Wi-Fi",
+      "Parking",
+      "Indoor Swimming Pool",
+      "Sauna & Steam Room",
+      "Gymnasium",
+      "Children's Playroom"
+    ],
+    breakfast: {
+      available: true,
+      price: "18,000"
+    },
+    cancellationPolicy: "Free cancellation is available up to 14 days before check-in date."
+  },
+  approved: null
+};
 
 const BookingHistory = () => {
   const [activeMenu, setActiveMenu] = useState("pending");
   const [showDetails, setShowDetails] = useState(false);
   const [reservationState, setReservationState] = useState("");
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   const menuItems = [
     { label: "Pending Approval", value: "pending" },
@@ -18,6 +56,7 @@ const BookingHistory = () => {
 
   const handleShowDetails = (state) => {
     setReservationState(state);
+    setSelectedBooking(bookingData[state]);
     setShowDetails(true);
   };
 
@@ -25,7 +64,7 @@ const BookingHistory = () => {
     <Wrapper className="booking-wrapper">
       {showDetails && (
         <DetailsWrapper>
-          <ReservationDetails state={reservationState} />
+          <ReservationDetails state={reservationState} booking={selectedBooking} />
           <CloseButton onClick={() => setShowDetails(false)}>
             <img src={XIcon} alt="x-icon" />
           </CloseButton>
@@ -46,9 +85,12 @@ const BookingHistory = () => {
 
       <BookingContainer>
         {activeMenu === "pending" ? (
-          <PendingApproval onShowDetails={() => handleShowDetails("pending")} />
+          <PendingApproval 
+            booking={bookingData.pending} 
+            onShowDetails={() => handleShowDetails("pending")} 
+          />
         ) : (
-          <Approved onShowDetails={() => handleShowDetails("booked")} />
+          <Approved onShowDetails={() => handleShowDetails("approved")} />
         )}
       </BookingContainer>
     </Wrapper>

@@ -32,7 +32,7 @@ const Nav = ({ activeMenu, userInfo }) => {
 
   return (
     <NavContainer>
-      <Header colors={colors}>
+      <Header $colors={colors}>
         <Title>Hello, {displayName}!</Title>
         <Email>{userInfo.email_name}</Email>
       </Header>
@@ -41,8 +41,8 @@ const Nav = ({ activeMenu, userInfo }) => {
         {MenuItems.map((item) => (
           <MenuItem
             key={item.id}
-            active={activeMenu === item.id}
-            colors={colors}
+            $active={activeMenu === item.id}
+            $colors={colors}
             onClick={() =>
               navigate(
                 item.id === "myinfo"
@@ -64,11 +64,11 @@ const Nav = ({ activeMenu, userInfo }) => {
       </MenuList>
 
       <PointSection onClick={() => navigate("/my-info/my-point")}>
-        <PointTitle colors={colors}>
+        <PointTitle $colors={colors}>
           <img src={CoinIcon} alt="coin-icon" />
           My Point
         </PointTitle>
-        <PointValue colors={colors}>
+        <PointValue $colors={colors}>
           {userInfo.point} P
           <img src={ArrowIcon} alt="arrow-icon" className="arrow-icon" />
         </PointValue>
@@ -91,7 +91,7 @@ const NavContainer = styled.div`
 
 const Header = styled.div`
   padding: 1.5rem;
-  background: ${props => props.colors.main};
+  background: ${props => props.$colors.main};
   color: white;
 `;
 
@@ -120,8 +120,8 @@ const MenuItem = styled.div`
   transition: background-color 0.2s;
   position: relative;
 
-  ${({ active, colors }) =>
-    active &&
+  ${({ $active, $colors }) =>
+    $active &&
     `
     background-color: #f3f4f6;
     &::before {
@@ -131,7 +131,7 @@ const MenuItem = styled.div`
       top: 0;
       bottom: 0;
       width: 4px;
-      background-color: ${colors.main};
+      background-color: ${$colors.main};
     }
   `}
 
@@ -195,14 +195,14 @@ const PointTitle = styled.h2`
   }
 
   &:hover {
-    color: ${props => props.colors.main};
+    color: ${props => props.$colors.main};
   }
 `;
 
 const PointValue = styled.p`
   font-size: 1.25rem;
   font-weight: bold;
-  color: ${props => props.colors.main};
+  color: ${props => props.$colors.main};
   display: flex;
   align-items: center;
   gap: 0.5rem;

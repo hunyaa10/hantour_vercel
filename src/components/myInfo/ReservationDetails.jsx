@@ -4,57 +4,15 @@ import CustomButton from "@components/custom/CustomButton";
 import { useColors } from "@context/ColorContext";
 import ReservationCancelModal from "./ReservationCancelModal";
 
-import OrakaiHotelSub from "@assets/images/orakaiHotel/orakai-sub.jpg";
-
 import PinIcon from "@assets/icons/pin.svg";
 
-const hotelInfo = [
-  {
-    state: "booked",
-    name: "Orakai Insadong Suites",
-    reservation_number: 72973820281017,
-    night: 2,
-    adults: 2,
-    child: 0,
-    room_type: "One Bedroom(1)",
-    check_in: "2025-02-18, 16:00",
-    check_out: "2025-02-20, 11:00",
-    address: "8, Insadong 4-gil, Jongno-Gu, 03163 Seoul, Republic of Korea",
-    one_night_price: 240000,
-    tax: 12300,
-    payment_method: "Visa Card",
-    images: {
-      sub: OrakaiHotelSub,
-    },
-    phone: "02-6262-8888",
-    amenities: [
-      "Free Wi-Fi",
-      "Parking",
-      "Indoor Swimming Pool",
-      "Sauna & Steam Room",
-      "Gymnasium",
-      "Children's Playroom"
-    ],
-    breakfast: {
-      available: true,
-      price: "18,000"
-    },
-    cancellationPolicy: "Free cancellation is available up to 14 days before check-in date."
-  },
-];
-
-const ReservationDetails = ({ state }) => {
-  const hotel = {
-    ...hotelInfo[0],
-    state: state || "booked",
-  };
-
+const ReservationDetails = ({ state, booking }) => {
   const colors = useColors();
   const [isShowCancelModal, setIsShowCancelModal] = useState(false);
 
   // 가격 계산 함수들
-  const calculateRoomPrice = () => hotel.one_night_price * hotel.night;
-  const calculateBreakfastPrice = () => parseInt(hotel.breakfast.price.replace(',', '')) * hotel.adults;
+  const calculateRoomPrice = () => booking.one_night_price * booking.night;
+  const calculateBreakfastPrice = () => parseInt(booking.breakfast.price.replace(',', '')) * booking.adults;
   const calculateTax = () => Math.floor(calculateRoomPrice() * 0.1); // 10% 세금
 
   useEffect(() => {
@@ -75,30 +33,28 @@ const ReservationDetails = ({ state }) => {
         <ReservationCancelModal setIsShowCancelModal={setIsShowCancelModal} />
       )}
 
-      <HotelName>{hotel.name}</HotelName>
+      <HotelName>{booking.name}</HotelName>
 
       <HotelInfoContainer>
-        <HotelImage src={hotel.images.sub} />
+        <HotelImage src={booking.images.sub} />
         <InfoTextBox>
-          <State color={colors.main}>{hotel.state}</State>
+          <State color={colors.main}>{state}</State>
           <RoomInfo $bgcolor={colors.subLight}>
             <RoomInfoText $textcolor={colors.sub}>
-              {hotel.night} Nights, {hotel.adults} Adults
-              {hotel.child > 0 && `, ${hotel.child} Child`}, {hotel.room_type}
+              {booking.night} Nights, {booking.adults} Adults
+              {booking.child > 0 && `, ${booking.child} Child`}, {booking.room_type}
               <br />
-              <span>Reservation</span>#{hotel.reservation_number}
+              <span>Reservation</span>#{booking.reservation_number}
             </RoomInfoText>
           </RoomInfo>
           <DateInfo>
             <DateCheckIn>
               <span>Check-in</span>
-              <div>Thu,Feb 13,</div>
-              <div>2025, 3:00 PM</div>
+              <div>{booking.check_in}</div>
             </DateCheckIn>
             <DateCheckOut>
               <span>Check-out</span>
-              <div>Fri,Feb 14,</div>
-              <div>2025, 11:00 AM</div>
+              <div>{booking.check_out}</div>
             </DateCheckOut>
           </DateInfo>
         </InfoTextBox>
@@ -108,7 +64,7 @@ const ReservationDetails = ({ state }) => {
         <ContainerTitle>Location</ContainerTitle>
         <Location>
           <img src={PinIcon} alt="pin-icon" />
-          {hotel.address}
+          {booking.address}
         </Location>
         <Map />
       </HotelLacationContainer>
@@ -117,14 +73,14 @@ const ReservationDetails = ({ state }) => {
         <ContainerTitle>Reservation Details</ContainerTitle>
         <RoomeInfoDetail>
           <DetailInfoBox>
-            <DetailInfoName>Room Rate ({hotel.night} Nights)</DetailInfoName>
+            <DetailInfoName>Room Rate ({booking.night} Nights)</DetailInfoName>
             <DetailInfoContents>
               ₩{calculateRoomPrice().toLocaleString()}
             </DetailInfoContents>
           </DetailInfoBox>
 
           <DetailInfoBox>
-            <DetailInfoName>Breakfast ({hotel.adults} persons)</DetailInfoName>
+            <DetailInfoName>Breakfast ({booking.adults} persons)</DetailInfoName>
             <DetailInfoContents>
               ₩{calculateBreakfastPrice().toLocaleString()}
             </DetailInfoContents>
@@ -139,7 +95,7 @@ const ReservationDetails = ({ state }) => {
 
           <DetailInfoBox>
             <DetailInfoName>Payment Method</DetailInfoName>
-            <DetailInfoContents>{hotel.payment_method}</DetailInfoContents>
+            <DetailInfoContents>{booking.payment_method}</DetailInfoContents>
           </DetailInfoBox>
         </RoomeInfoDetail>
 
@@ -154,7 +110,7 @@ const ReservationDetails = ({ state }) => {
       <CancellationPolicyContainer>
         <ContainerTitle>Cancellation Policy</ContainerTitle>
         <PolicyContent>
-          <p>{hotel.cancellationPolicy}</p>
+          <p>{booking.cancellationPolicy}</p>
           <p>
             After the free cancellation period, cancellations, modifications, 
             or no-shows will incur a hotel fee equivalent to 100% of the total 
