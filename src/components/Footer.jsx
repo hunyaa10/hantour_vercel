@@ -36,9 +36,9 @@ const Footer = () => {
             <Term href="#a" target="_blank" rel="noopener noreferrer">
               개인정보처리방침
             </Term>
-            <Term href="#a" target="_blank" rel="noopener noreferrer">
+            {/* <Term href="#a" target="_blank" rel="noopener noreferrer">
               사업자정보
-            </Term>
+            </Term> */}
           </Terms>
 
           {/* 작업을 위한 관리자 버튼 */}
