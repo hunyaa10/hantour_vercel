@@ -30,10 +30,16 @@ const Footer = () => {
             </TextBox>
           </Script>
           <Terms>
-            <Term href="#a" target="_blank" rel="noopener noreferrer">
+            <Term 
+              href="/docs/terms-of-service.pdf"
+              download
+            >
               이용약관
             </Term>
-            <Term href="#a" target="_blank" rel="noopener noreferrer">
+            <Term 
+              href="/docs/privacy-policy.pdf"
+              download
+            >
               개인정보처리방침
             </Term>
             {/* <Term href="#a" target="_blank" rel="noopener noreferrer">
