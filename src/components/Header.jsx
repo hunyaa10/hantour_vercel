@@ -103,7 +103,7 @@ const Header = () => {
         </Link>
 
         <Nav>
-          <Link to="/hotel-search?area=All">
+          <Link to="/hotel-search?area=Seoul">
             <NavLink color={colors.main}>Hotel Reservation</NavLink>
           </Link>
           <Link to="/my-info">

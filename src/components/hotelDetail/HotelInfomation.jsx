@@ -66,9 +66,14 @@ const HotelInfomation = ({ hotel, onBreakfastChange, onPersonsChange }) => {
 
       <InfoContainer>
         <InfoBox>
-          <Name color={colors.sub}>
+          <Name>
             {hotel.name}
-            <span>{hotel.stars}-Star</span>
+            <Stars>
+              {[...Array(hotel.stars)].map((_, index) => (
+                <Star key={index}>★</Star>
+              ))}
+              <StarsText>{hotel.stars}-star-hotel</StarsText>
+            </Stars>
           </Name>
 
           <Address>
@@ -189,12 +194,29 @@ const InfoBox = styled.div`
 `;
 
 const Name = styled.h3`
-  span {
-    margin-left: 0.5rem;
-    font-size: 0.9rem;
-    color: ${(props) => props.color};
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 `;
+
+const Stars = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2px;
+`;
+
+const Star = styled.span`
+  color: #ffd700;
+  font-size: 1rem;
+`;
+
+const StarsText = styled.span`
+  margin-left: 4px;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+`;
+
 const Address = styled.div`
   font-size: 1rem;
   display: flex;

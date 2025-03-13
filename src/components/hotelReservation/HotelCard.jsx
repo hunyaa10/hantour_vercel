@@ -14,19 +14,19 @@ const HotelCard = ({ hotel }) => {
 
   return (
     <HotelCardWrapper onClick={handleClick}>
-      <HotelImageContainer>
-        <HotelImage src={images.main} alt={name} />
-        <StarBadge>{stars}-Star</StarBadge>
-      </HotelImageContainer>
-
       <HotelInfo>
         <TopSection>
           <HotelHeader>
-            <HotelName>{name}</HotelName>
+            <HotelNameSection>
+              <HotelName>{name}</HotelName>
+              <StarsWrapper>
+                {[...Array(stars)].map((_, index) => (
+                  <Star key={index}>★</Star>
+                ))}
+              </StarsWrapper>
+            </HotelNameSection>
             <HotelRating>
-              <span>★</span>
-              <span>{rating}</span>
-              {/* <ReviewCount>({reviews} reviews)</ReviewCount> */}
+              <RatingScore>★ {rating}</RatingScore>
             </HotelRating>
           </HotelHeader>
 
@@ -58,18 +58,17 @@ const HotelCard = ({ hotel }) => {
 
 // Styled Components
 const HotelCardWrapper = styled.div`
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 1rem;
+  width: 100%;
   background-color: white;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
+  border: 1px solid #e5e7eb;
 
   &:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
 `;
@@ -104,16 +103,110 @@ const StarBadge = styled.div`
 `;
 
 const HotelInfo = styled.div`
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  padding: 1.75rem;
 `;
 
 const TopSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.25rem;
+`;
+
+const HotelHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+const HotelNameSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const HotelName = styled.h3`
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+`;
+
+const StarsWrapper = styled.div`
+  display: flex;
+  gap: 2px;
+  align-items: center;
+`;
+
+const Star = styled.span`
+  color: #fbbf24;
+  font-size: 1.1rem;
+`;
+
+const HotelRating = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f8fafc;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+`;
+
+const RatingScore = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  
+  span {
+    color: #fbbf24;
+  }
+`;
+
+const ReviewCount = styled.span`
+  font-size: 0.875rem;
+  color: #64748b;
+`;
+
+const HotelLocation = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+
+  svg {
+    color: #6b7280;
+  }
+`;
+
+const AmenitiesList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 0.5rem;
+`;
+
+const AmenityBadge = styled.span`
+  background-color: #f1f5f9;
+  color: #475569;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #e2e8f0;
+  }
+`;
+
+const Separator = styled.hr`
+  width: 100%;
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 1.5rem 0;
 `;
 
 const BottomSection = styled.div`
@@ -121,66 +214,10 @@ const BottomSection = styled.div`
   flex-direction: column;
 `;
 
-const HotelHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-`;
-
-const HotelName = styled.h3`
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin: 0;
-  color: #222;
-`;
-
-const HotelRating = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-weight: 600;
-  color: #222;
-`;
-
-const ReviewCount = styled.span`
-  font-size: 0.875rem;
-  color: #64748b;
-  font-weight: 400;
-`;
-
-const HotelLocation = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-size: 0.875rem;
-  color: #64748b;
-`;
-
-const AmenitiesList = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-`;
-
-const AmenityBadge = styled.span`
-  background-color: #f0f0f0;
-  color: #222;
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-`;
-
-const Separator = styled.hr`
-  width: 100%;
-  border: none;
-  border-top: 1px solid #e5e7eb;
-  margin: 1rem 0;
-`;
-
 const RoomList = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.25rem;
 `;
 
 export default HotelCard;

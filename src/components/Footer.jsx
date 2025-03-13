@@ -42,15 +42,7 @@ const Footer = () => {
             >
               개인정보처리방침
             </Term>
-            {/* <Term href="#a" target="_blank" rel="noopener noreferrer">
-              사업자정보
-            </Term> */}
           </Terms>
-
-          {/* 작업을 위한 관리자 버튼 */}
-          <Link to={"/admin"}>
-            <Admin>관리자</Admin>
-          </Link>
         </FooterInner>
       </Container>
     </MainFooter>

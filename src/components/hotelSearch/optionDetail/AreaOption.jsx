@@ -5,14 +5,10 @@ import { MapPin, ChevronDown } from "react-feather";
 const LocationFilter = ({ selectedLocation, setSelectedLocation }) => {
   const [showLocations, setShowLocations] = useState(false);
   const locations = [
-    "All",
     "Seoul",
     "Busan",
     "Jeju",
-    "Incheon",
-    "Gangneung",
-    "Daejeon",
-    "Gwangju",
+    "Incheon"
   ];
 
   return (

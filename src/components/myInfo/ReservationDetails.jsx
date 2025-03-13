@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import CustomButton from "@components/custom/CustomButton";
 import { useColors } from "@context/ColorContext";
 import ReservationCancelModal from "./ReservationCancelModal";
@@ -33,32 +34,37 @@ const ReservationDetails = ({ state, booking }) => {
         <ReservationCancelModal setIsShowCancelModal={setIsShowCancelModal} />
       )}
 
-      <HotelName>{booking.name}</HotelName>
-
-      <HotelInfoContainer>
-        <HotelImage src={booking.images.sub} />
-        <InfoTextBox>
+      <TopSection>
+        <MainInfo>
+          <HotelNameLink to={`/hotel-detail/${encodeURIComponent(booking.name)}`}>
+            {booking.name}
+          </HotelNameLink>
           <State color={colors.main}>{state}</State>
-          <RoomInfo $bgcolor={colors.subLight}>
-            <RoomInfoText $textcolor={colors.sub}>
+        </MainInfo>
+
+        <ReservationInfo>
+          <InfoBox>
+            <ReservationNumber>
+              <span>Reservation</span> #{booking.reservation_number}
+            </ReservationNumber>
+            <RoomDetails>
               {booking.night} Nights, {booking.adults} Adults
               {booking.child > 0 && `, ${booking.child} Child`}, {booking.room_type}
-              <br />
-              <span>Reservation</span>#{booking.reservation_number}
-            </RoomInfoText>
-          </RoomInfo>
+            </RoomDetails>
+          </InfoBox>
+
           <DateInfo>
-            <DateCheckIn>
-              <span>Check-in</span>
-              <div>{booking.check_in}</div>
-            </DateCheckIn>
-            <DateCheckOut>
-              <span>Check-out</span>
-              <div>{booking.check_out}</div>
-            </DateCheckOut>
+            <DateBox>
+              <Label>Check-in</Label>
+              <Date>{booking.check_in}</Date>
+            </DateBox>
+            <DateBox>
+              <Label>Check-out</Label>
+              <Date>{booking.check_out}</Date>
+            </DateBox>
           </DateInfo>
-        </InfoTextBox>
-      </HotelInfoContainer>
+        </ReservationInfo>
+      </TopSection>
 
       <HotelLacationContainer>
         <ContainerTitle>Location</ContainerTitle>
@@ -66,7 +72,7 @@ const ReservationDetails = ({ state, booking }) => {
           <img src={PinIcon} alt="pin-icon" />
           {booking.address}
         </Location>
-        <Map />
+        <Map>Google Map Coming Soon</Map>
       </HotelLacationContainer>
 
       <HotelDetailContainer>
@@ -133,13 +139,100 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 2rem;
   padding-bottom: 2rem;
+  background-color: #fff;
+`;
 
-  @media screen and (max-width: 1280px) {
-    gap: 1.5rem;
+const TopSection = styled.div`
+  background-color: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  margin-top: 1rem;
+`;
+
+const MainInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  margin-bottom: 1.5rem;
+`;
+
+const HotelNameLink = styled(Link)`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: ${props => props.theme.colors?.main || '#0070f3'};
   }
 `;
 
-const HotelName = styled.h3``;
+const State = styled.div`
+  text-transform: uppercase;
+  background-color: ${props => props.color};
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+`;
+
+const ReservationInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.75rem;
+`;
+
+const InfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+`;
+
+const ReservationNumber = styled.div`
+  font-size: 0.875rem;
+  color: #666;
+  
+  span {
+    color: #999;
+  }
+`;
+
+const RoomDetails = styled.div`
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+`;
+
+const DateInfo = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const DateBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 120px;
+`;
+
+const Label = styled.span`
+  font-size: 0.875rem;
+  color: #666;
+`;
+
+const Date = styled.div`
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+`;
 
 const HotelInfoContainer = styled.div`
   display: flex;
@@ -172,19 +265,6 @@ const InfoTextBox = styled.div`
 
   @media screen and (max-width: 1024px) {
     gap: 0.5rem;
-  }
-`;
-const State = styled.div`
-  text-transform: uppercase;
-  background-color: ${(props) => props.color};
-  color: #fff;
-  font-size: 1rem;
-  width: fit-content;
-  padding: 0.25rem 0.75rem;
-  border-radius: 3rem;
-
-  @media screen and (max-width: 1440px) {
-    font-size: 0.8rem;
   }
 `;
 const RoomInfo = styled.div`
@@ -222,45 +302,6 @@ const RoomInfoText = styled.div`
   }
 `;
 
-const DateInfo = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const DateCheckIn = styled.div`
-  width: 49%;
-  padding: 1rem;
-  border-radius: 0.25rem;
-  background-color: #ececec;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.3rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-
-  span {
-    font-size: 1rem;
-    color: #999;
-  }
-
-  @media screen and (max-width: 1440px) {
-    font-size: 1rem;
-
-    span {
-      font-size: 0.8rem;
-    }
-  }
-
-  @media screen and (max-width: 1280px) {
-    font-size: 0.9rem;
-  }
-`;
-const DateCheckOut = styled(DateCheckIn)`
-  align-items: flex-end;
-`;
-
 const HotelLacationContainer = styled.div``;
 const Location = styled.div`
   padding-bottom: 0.5rem;
@@ -287,8 +328,14 @@ const Location = styled.div`
 const Map = styled.div`
   width: 100%;
   height: 400px;
-  background-color: #ececec;
+  background-color: #ccc;
   border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 500;
 `;
 
 const HotelDetailContainer = styled.div``;

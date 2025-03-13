@@ -55,22 +55,25 @@ const MyPoint = () => {
       <PointContainer>
         <PointBox>
           <PointHeader>
-            <img src={CoinIcon} alt="coin-icon" />
-            <h4>Available Points</h4>
+            <div>
+              <img src={CoinIcon} alt="coin-icon" />
+              <h4>Available Points</h4>
+            </div>
+            <PointAmount>{totalPoints} P</PointAmount>
           </PointHeader>
 
-          <PointAmountBox>
+          {/* <PointAmountBox>
             <PointAmount>{totalPoints} P</PointAmount>
             <PaybackBtn>
               <CustomButton onClick={handlePayback} padding={"0.75rem"}>
                 Payback
               </CustomButton>
             </PaybackBtn>
-          </PointAmountBox>
+          </PointAmountBox> */}
 
-          <PointAmountScript color={colors.sub}>
+          {/* <PointAmountScript color={colors.sub}>
             Payback is available from 100,000 points.
-          </PointAmountScript>
+          </PointAmountScript> */}
         </PointBox>
 
         <HistoryContainer>
@@ -165,16 +168,25 @@ const PointBox = styled.div`
 const PointHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
   margin-bottom: 1rem;
 
+  div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
   img {
     width: 24px;
+    flex-shrink: 0;
   }
 
   h4 {
     font-size: 1.1rem;
     font-weight: 600;
+    white-space: nowrap;
   }
 
   @media screen and (max-width: 1440px) {
@@ -199,6 +211,7 @@ const PointAmountBox = styled.div`
 const PointAmount = styled.div`
   font-size: 1.8rem;
   font-weight: 700;
+  white-space: nowrap;
 
   @media screen and (max-width: 1440px) {
     font-size: 1.5rem;

@@ -59,14 +59,14 @@ const PendingApproval = ({ booking, onShowDetails }) => {
               Total Amount: <span>₩{calculateTotalPrice().toLocaleString()}</span>
             </Price>
             <BtnBox>
+              <Btn $color={colors.mainLight} onClick={onShowDetails}>
+                Details
+              </Btn>
               <Btn
                 $color={colors.mainLight}
                 onClick={() => setIsPaymentOpen(true)}
               >
                 Payment
-              </Btn>
-              <Btn $color={colors.mainLight} onClick={onShowDetails}>
-                Details
               </Btn>
             </BtnBox>
           </PriceBox>

@@ -12,9 +12,7 @@ const HotelLocation = ({ hotel }) => {
         <img src={PinIcon} alt="pin-icon" />
         {hotel.address}
       </Location>
-      {/* 구글맵 연결 */}
-      <Map />
-
+      <Map>Google Map Coming Soon</Map>
       {/* 일일버스투어 관광지목록 */}
       {/* <DayTourContainer>
         <TourTitle>
@@ -63,6 +61,12 @@ const Map = styled.div`
   height: 50vh;
   border-radius: 0.5rem;
   background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 500;
 `;
 
 const DayTourContainer = styled.div``;

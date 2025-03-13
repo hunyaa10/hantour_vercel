@@ -11,7 +11,7 @@ import CustomMainInput from "../components/custom/CustomMainInput";
 const HotelSearch = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const areaFromUrl = queryParams.get("area") || "All";
+  const areaFromUrl = queryParams.get("area") || "Seoul";
   const searchQuery = queryParams.get("search") || "";
   
   const [filters, setFilters] = useState({
