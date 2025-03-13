@@ -22,7 +22,7 @@ const ReservationCancelModal = ({ setIsShowCancelModal }) => {
         </CloseBtn>
         <Text>Are you sure you want to cancel your reservation?</Text>
         <BtnBox>
-          <CustomButton onClick={handleCancelReservation}>
+          <CustomButton>
             Cancel reservation
           </CustomButton>
         </BtnBox>

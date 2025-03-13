@@ -180,7 +180,7 @@ const PaybackModal = ({
           {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
           <CustomButton
             width="40%"
-            onClick={handlePayback}
+            // onClick={handlePayback}
             disabled={!!errorMessage || !paybackAmount}
           >
             Payback
