@@ -1,9 +1,9 @@
 export const footerData = {
-  companyName: "(주)티엔엠투어",
-  ceo: "김윤승",
+  companyName: "TNM Tour Co., Ltd.",
+  ceo: "Kim Yun-seung",
   businessNumber: "797-86-02498",
-  phone: "02-725-5595",
+  phone: "+82-2-725-5595",
   email: "kongtour@naver.com",
-  address: "서울특별시 종로구 북촌로 104, 계동빌딩 2층 B호",
-  businessLicense: "2020-서울종로-1775 호",
+  address: "2F-B, Gyedong Building, 104 Bukchon-ro, Jongno-gu, Seoul, Korea",
+  businessLicense: "2020-Jongno-Seoul-1775"
 }; 

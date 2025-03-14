@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { footerData } from "@data/footerData";
 
 import LogoName from "@assets/logo/logo-Kongtour.svg";
@@ -18,29 +17,31 @@ const Footer = () => {
               <Text>
                 {footerData.companyName}
                 <br />
-                대표이사: {footerData.ceo} | 사업자등록번호: {footerData.businessNumber}
+                CEO: {footerData.ceo} | Business Registration No.:{" "}
+                {footerData.businessNumber}
                 <br />
-                연락처: {footerData.phone} | 이메일: {footerData.email}
+                Tel: {footerData.phone} | Email: {footerData.email}
               </Text>
               <Text>
-                주소: {footerData.address}
+                Address: {footerData.address}
                 <br />
-                통신판매업자신고: {footerData.businessLicense}
+                E-commerce Registration: {footerData.businessLicense}
               </Text>
             </TextBox>
           </Script>
+          
           <Terms>
             <Term 
               href="/docs/terms-of-service.pdf"
               download
             >
-              이용약관
+              Terms of Service
             </Term>
             <Term 
               href="/docs/privacy-policy.pdf"
               download
             >
-              개인정보처리방침
+              Privacy Policy
             </Term>
           </Terms>
         </FooterInner>
