@@ -5,5 +5,5 @@ export const footerData = {
   phone: "+82-2-725-5595",
   email: "kongtour@naver.com",
   address: "2F-B, Gyedong Building, 104 Bukchon-ro, Jongno-gu, Seoul, Korea",
-  businessLicense: "2020-Jongno-Seoul-1775"
+  businessLicense: "2025-Jongno-Seoul-0360"
 }; 
